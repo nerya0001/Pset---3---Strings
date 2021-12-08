@@ -11,7 +11,7 @@ algo.o: algo.c algo.h
 main.o: main.c algo.h
 	$(CC) $(FLAGS) -c main.c
 
-stringProg: main.o
+stringProg: main.o libclassalgo.a
 	$(CC) $(FLAGS) -o stringProg main.o libclassalgo.a
 
 

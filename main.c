@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <ctype.h>
+#include <string.h>
 #include "algo.h"
 
 #define WLEN 30 //word length
@@ -12,6 +14,17 @@ int main() {
   // reading strings
   scanf("%s", word);
   scanf("%s", text);
+
+  char numerS[TLEN];
+  strcpy(numerS, numerology(word, text));
+  char atbashS[TLEN];
+  strcpy(atbashS, atbash(word, text));
+  char anagramS[TLEN];
+  strcpy(anagramS, anagram(word, text));
+
+  printf("Gematria Sequences: %s\n", numerS);
+  printf("Atbash Sequences: %s\n", atbashS);
+  printf("Anagram Sequences: %s\n", anagramS);
 
   return 0;
 }
