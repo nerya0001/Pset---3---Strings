@@ -3,28 +3,24 @@
 #include <string.h>
 #include "algo.h"
 
-#define WLEN 30 //word length
-#define TLEN 256 //text length
+#define WORD 30 //word length
+#define TXT 1024 //text length
 
 int main() {
   // declaring word
-  char word[WLEN];
-  char text[TLEN];
+  char word[WORD];
+  char text[TXT];
 
   // reading strings
   scanf("%s", word);
-  scanf("%s", text);
+  // scanf("%s", text);
+  scanf("%[^~]s", text);
 
-  char numerS[TLEN];
-  strcpy(numerS, numerology(word, text));
-  char atbashS[TLEN];
-  strcpy(atbashS, atbash(word, text));
-  char anagramS[TLEN];
-  strcpy(anagramS, anagram(word, text));
-
-  printf("Gematria Sequences: %s\n", numerS);
-  printf("Atbash Sequences: %s\n", atbashS);
-  printf("Anagram Sequences: %s\n", anagramS);
-
+  printf("Gematria Sequences: ");
+  numerology(word, text);
+  printf("Atbash Sequences: ");
+  atbash(word, text);
+  printf("Anagram Sequences: ");
+  anagram(word, text);
   return 0;
 }

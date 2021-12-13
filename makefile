@@ -1,7 +1,7 @@
 CC=gcc
 FLAGS=-Wall -g
 
-all: libclassalgo.a stringProg
+all: stringProg
 
 libclassalgo.a: algo.o
 	$(AR) -rcs libclassalgo.a algo.o
