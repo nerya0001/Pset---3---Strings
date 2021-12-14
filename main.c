@@ -14,7 +14,7 @@ int main() {
   // reading strings
   scanf("%s", word);
   // scanf("%s", text);
-  scanf("%[^~]s", text);
+  scanf("%[^'~']s", text);
 
   printf("Gematria Sequences: ");
   numerology(word, text);

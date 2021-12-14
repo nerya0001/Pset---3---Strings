@@ -17,6 +17,8 @@ const char* toAtbash(char word[]);
 int compare(char *text, char *word, int n);
 //reverse word
 void reverse_string(char *str);
+//check anagram
+int check_anagram(char *word, char *text, int c, int k);
 
 /* all of the minimal sequences with the same numerology as s */
 void numerology(char word[], char text[]) {
@@ -32,7 +34,7 @@ void numerology(char word[], char text[]) {
           strcat_c(ans, textCopy[k]);
         }
         strcat_c(ans, '~');
-        i = j;
+        i++;
       } else if (!isalpha(textCopy[i])) {
         i++;
       } else if (!isalpha(textCopy[j])) {
@@ -84,46 +86,32 @@ void atbash(char word[], char text[]) {
   printf("%s\n", ans);
 }
 
-int check_anagram(char a[], char b[])
-{
-  int first[26] = {0}, second[26] = {0}, c=0;
-  // Calculating frequency of characters of the first string
-  while (a[c] != '\0') {
-    first[a[c]-'a']++;
-    c++;
-  }
-  c = 0;
-  while (b[c] != '\0') {
-    second[b[c]-'a']++;
-    c++;
-  }
-  // Comparing the frequency of characters
-  for (c = 0; c < 26; c++)
-    if (first[c] != second[c])
-      return 0;
-
-  return 1;
-}
-
-// /* all of the minimal sequences that are composed from the characters of s */
+/* all of the minimal sequences that are composed from the characters of s */
 void anagram(char word[], char text[]) {
   char wordCopy[WORD], textCopy[TXT];
   static char ans[TXT];
   strcpy(wordCopy, word);
   strcpy(textCopy, text);
-  char curr[WORD];
+  // char curr[WORD];
 
   for (int i = 0, j = 0; i < strlen(textCopy) && j < strlen(textCopy);) {
-    strcat_c(curr, textCopy[i]);
-    while (j < strlen(wordCopy)) {
-      strcat_c(curr, textCopy[i]);
+    if ((j-i) == strlen(wordCopy)-1) {
+      if (check_anagram(wordCopy, textCopy, i, j)) {
+        for (int k = i; k <= j; k++) {
+          strcat_c(ans, textCopy[k]);
+        }
+        strcat_c(ans, '~');
+        i++;
+        j++;
+      } else {
+        i++;
+        j++;
+      }
+    } else if ((j-i) > strlen(wordCopy)-1) {
+      i++;
+    } else if ((j-i) < strlen(wordCopy)-1){
       j++;
     }
-    if (check_anagram(wordCopy, curr) == 1) {
-      strcat(ans, curr);
-      strcat_c(ans, '~');
-    }
-    i += j;
   }
   ans[strlen(ans) - 1] = '\0';
   printf("%s\n", ans);
@@ -220,4 +208,26 @@ void reverse_string(char *str) {
         ++start;
         --end;
     }
+}
+
+//chek for anagram, work like counting sort
+int check_anagram(char *word, char *text, int c, int k) {
+  int first[127] = {0}, second[127] = {0};
+  // Calculating frequency of characters of the first string
+  for (int i = 0; i < strlen(word); i++) {
+    first[(int)word[i]]++;
+  }
+  // Calculating frequency of characters of the first string
+  for (int j = c; j <= k; j++) {
+    second[(int)text[j]]++;
+  }
+
+  // Comparing the frequency of characters
+  for (int l = 0; l < 127; l++) {
+    if (first[l] != second[l]) {
+      return 0;
+    }
+  }
+
+  return 1;
 }
