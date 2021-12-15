@@ -21,9 +21,6 @@ void reverse_string(char *str);
 int check_anagram(char *word, char *text, int c, int k);
 
 
-
-
-
 /* all of the minimal sequences with the same numerology as s */
 void numerology(char word[], char text[]) {
   static char wordCopy[WORD], textCopy[TXT], ans[TXT];
@@ -67,10 +64,8 @@ void atbash(char word[], char text[]) {
   strcpy(wordatb, toAtbash(wordCopy));
   strcpy(revers, wordatb);
   reverse_string(revers);
-  // printf("wordatb = %s\n",wordatb);
-  // printf("revers = %s\n",revers);
+
   for (int i = 0; i < strlen(textCopy);) {
-    // printf(" = %d\n", compare(textCopy, wordatb, i));
     if (compare(textCopy, wordatb, i) == 0) {
       for (int k = i; k < strlen(wordatb) + i; k++) {
         strcat_c(ans, textCopy[k]);
@@ -96,10 +91,9 @@ void anagram(char word[], char text[]) {
   static char ans[TXT];
   strcpy(wordCopy, word);
   strcpy(textCopy, text);
-  // char curr[WORD];
 
   for (int i = 0, j = 0; i < strlen(textCopy) && j < strlen(textCopy);) {
-    if ((j-i) == strlen(wordCopy)-1) {
+    if ((j-i) >= strlen(wordCopy)-1) {
       if (check_anagram(wordCopy, textCopy, i, j)) {
         for (int k = i; k <= j; k++) {
           strcat_c(ans, textCopy[k]);
@@ -111,19 +105,13 @@ void anagram(char word[], char text[]) {
         i++;
         j++;
       }
-    } //else if ((j-i) > strlen(wordCopy)-1) {
-    //   i++;
-    // } 
-    else if ((j-i) < strlen(wordCopy)-1){
+    } else if ((j-i) < strlen(wordCopy)-1){
       j++;
     }
   }
   ans[strlen(ans) - 1] = '\0';
   printf("%s\n", ans);
 }
-
-
-
 
 
 void strcat_c(char *str, char c) {
@@ -173,17 +161,20 @@ const char* toAtbash(char word[]) {
 }
 
 int compare(char *text, char *word, int n) {
-  int i = 0, count = 0;
-  // printf(" word len is -> %d", (int)strlen(word));
+  int i = 0, j = 0, count = 0;
+
   while (i < strlen(word)) {
-    if (text[n + i] == word[i]) {
-      // printf("%c %c",text[n+i], word[i]);
-      // printf(" next char is -> %c",text[n+i]);
+    if (text[n + j] == word[i]) {
       count++;
+      i++;
+      j++;
+    } else if (text[n + i] == 32) {
+      j++;
+    } else {
+      break;
     }
-    i++;
   }
-  // printf(" count = %d\n", count);
+
   if (count == strlen(word)) {
     return 0;
   }
@@ -228,7 +219,8 @@ int check_anagram(char *word, char *text, int c, int k) {
   for (int j = c; j <= k; j++) {
     second[(int)text[j]]++;
   }
-
+  first[32] = 0;
+  second[32] = 0;
   // Comparing the frequency of characters
   for (int l = 0; l < 127; l++) {
     if (first[l] != second[l]) {
