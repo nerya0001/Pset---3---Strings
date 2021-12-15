@@ -117,8 +117,6 @@ void anagram(char word[], char text[]) {
   printf("%s\n", ans);
 }
 
-
-
 void strcat_c(char *str, char c) {
   for (;*str;str++); // note the terminating semicolon here.
   *str++ = c;
