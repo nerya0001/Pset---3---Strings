@@ -20,6 +20,10 @@ void reverse_string(char *str);
 //check anagram
 int check_anagram(char *word, char *text, int c, int k);
 
+
+
+
+
 /* all of the minimal sequences with the same numerology as s */
 void numerology(char word[], char text[]) {
   static char wordCopy[WORD], textCopy[TXT], ans[TXT];
@@ -107,15 +111,20 @@ void anagram(char word[], char text[]) {
         i++;
         j++;
       }
-    } else if ((j-i) > strlen(wordCopy)-1) {
-      i++;
-    } else if ((j-i) < strlen(wordCopy)-1){
+    } //else if ((j-i) > strlen(wordCopy)-1) {
+    //   i++;
+    // } 
+    else if ((j-i) < strlen(wordCopy)-1){
       j++;
     }
   }
   ans[strlen(ans) - 1] = '\0';
   printf("%s\n", ans);
 }
+
+
+
+
 
 void strcat_c(char *str, char c) {
   for (;*str;str++); // note the terminating semicolon here.
