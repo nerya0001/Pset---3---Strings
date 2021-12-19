@@ -171,7 +171,7 @@ int compare(char *text, char *word, int n) {
     } else if (text[n + i] == 32) {
       j++;
     } else {
-      break;
+      break
     }
   }
 
