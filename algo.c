@@ -110,7 +110,7 @@ void anagram(char word[], char text[]) {
     }
   }
   ans[strlen(ans) - 1] = '\0';
-  printf("%s\n", ans);
+  printf("%s", ans);
 }
 
 
