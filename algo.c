@@ -110,7 +110,7 @@ void anagram(char word[], char text[]) {
     }
   }
   ans[strlen(ans) - 1] = '\0';
-  printf("%s\n", ans);
+  printf("%s\n\n", ans);
 }
 
 
@@ -171,7 +171,7 @@ int compare(char *text, char *word, int n) {
     } else if (text[n + i] == 32) {
       j++;
     } else {
-      break;
+      break
     }
   }
 
