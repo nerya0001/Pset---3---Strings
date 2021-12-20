@@ -94,17 +94,21 @@ void anagram(char word[], char text[]) {
 
   for (int i = 0, j = 0; i < strlen(textCopy) && j < strlen(textCopy);) {
     if ((j-i) >= strlen(wordCopy)-1) {
-      if (check_anagram(wordCopy, textCopy, i, j)) {
-        for (int k = i; k <= j; k++) {
-          strcat_c(ans, textCopy[k]);
-        }
-        strcat_c(ans, '~');
-        i++;
-        j++;
+      // for (int k = i; k <= j; k++) {
+      //   printf("%c", textCopy[k]);
+      // }
+      // printf("\n");
+      if (check_anagram(wordCopy, textCopy, i, j) && !isspace(textCopy[i])) {
+      for (int k = i; k <= j; k++) {
+        strcat_c(ans, textCopy[k]);
+      }
+      strcat_c(ans, '~');
+      i++;
+      j++;
       } else {
         i++;
         j++;
-      }
+        }
     } else if ((j-i) < strlen(wordCopy)-1){
       j++;
     }
