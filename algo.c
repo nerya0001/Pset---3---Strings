@@ -102,8 +102,10 @@ void anagram(char word[], char text[]) {
       i++;
       j++;
       } else {
-        i++;
         j++;
+        if (isspace(textCopy[i])) {
+          i++;
+        }
         }
     } else if ((j-i) < strlen(wordCopy)-1){
       j++;
