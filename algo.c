@@ -19,7 +19,8 @@ int compare(char *text, char *word, int n);
 void reverse_string(char *str);
 //check anagram
 int check_anagram(char *word, char *text, int c, int k);
-
+//check current char number not including spaces
+int charCount(char *word, char *text, int c, int k);
 
 /* all of the minimal sequences with the same numerology as s */
 void numerology(char word[], char text[]) {
@@ -94,6 +95,10 @@ void anagram(char word[], char text[]) {
 
   for (int i = 0, j = 0; i < strlen(textCopy) && j < strlen(textCopy);) {
     if ((j-i) >= strlen(wordCopy)-1) {
+      // for (int k = i; k <= j; k++) {
+      //   printf("%c", textCopy[k]);
+      // }
+      // printf("\n");
       if (check_anagram(wordCopy, textCopy, i, j) && !isspace(textCopy[i])) {
       for (int k = i; k <= j; k++) {
         strcat_c(ans, textCopy[k]);
@@ -101,13 +106,16 @@ void anagram(char word[], char text[]) {
       strcat_c(ans, '~');
       i++;
       j++;
-      } else {
+      } else if (isspace(textCopy[i])) {
+        i++;
         j++;
-        if (isspace(textCopy[i])) {
-          i++;
-        }
-        }
-    } else if ((j-i) < strlen(wordCopy)-1){
+      } else if (charCount(wordCopy, textCopy, i, j) <= strlen(wordCopy)) {
+        j++;
+      } else {
+        i++;
+      }
+
+    } else if ((j-i) < strlen(wordCopy)-1) {
       j++;
     }
   }
@@ -231,4 +239,23 @@ int check_anagram(char *word, char *text, int c, int k) {
   }
 
   return 1;
+}
+
+int charCount(char *word, char *text, int c, int k) {
+  int count = 0;
+  int chars[127] = {0};
+
+  // Calculating frequency of characters of the chars string
+  for (int j = c; j <= k; j++) {
+    chars[(int)text[j]]++;
+  }
+
+  chars[32] = 0;
+
+  for (int l = 0; l < 127; l++) {
+    if (chars[l] > 0) {
+      count++;
+    }
+  }
+  return count;
 }
