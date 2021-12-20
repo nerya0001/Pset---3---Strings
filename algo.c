@@ -108,8 +108,9 @@ void anagram(char word[], char text[]) {
       j++;
       } else if (isspace(textCopy[i])) {
         i++;
-        j++;
+        // j++;
       } else if (charCount(wordCopy, textCopy, i, j) <= strlen(wordCopy)) {
+        // printf(" = %d", charCount(wordCopy, textCopy, i, j));
         j++;
       } else {
         i++;
@@ -118,7 +119,9 @@ void anagram(char word[], char text[]) {
     } else if ((j-i) < strlen(wordCopy)-1) {
       j++;
     }
+    // printf("\n");
   }
+
   ans[strlen(ans) - 1] = '\0';
   printf("%s", ans);
 }
@@ -254,7 +257,7 @@ int charCount(char *word, char *text, int c, int k) {
 
   for (int l = 0; l < 127; l++) {
     if (chars[l] > 0) {
-      count++;
+      count += chars[l];
     }
   }
   return count;
