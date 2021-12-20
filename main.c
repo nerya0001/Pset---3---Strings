@@ -13,6 +13,14 @@ int main() {
 
   // reading strings
   scanf("%s", word);
+  for (int i = 0; i < strlen(word); i++) {
+    if (word[i] == '~') {
+      printf("Gematria Sequences: \n");
+      printf("Atbash Sequences: \n");
+      printf("Anagram Sequences: ");
+      return 0;
+    }
+  }
   scanf("%[^~]s", text);
 
   printf("Gematria Sequences: ");
